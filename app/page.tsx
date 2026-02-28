@@ -1,7 +1,13 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
  function Home() {
   return (
-    <h1>Welcome to the Home Page</h1>
+    <div>
+      <Navbar/>
+      <h1>Home Page</h1>
+      <Footer />
+    </div>
   );
 }
 export default Home;
