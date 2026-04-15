@@ -1,0 +1,1280 @@
+/* ==========================================
+   1. GLOBAL STYLES (Variables, Fonts, Reset)
+   ========================================== */
+:root {
+    --sage-green: #97a97c;
+    --dark-charcoal: #1a1a1a;
+    --off-white: #f9f9f9;
+    --white: #ffffff;
+    --text-muted: #666666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--dark-charcoal);
+    background-color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   2. SHARED COMPONENTS (Nav & Footer)
+   ========================================== */
+/* Change the text color of the current page link */
+.nav-links a.active {
+    color: var(--sage-green);
+}
+
+/* Hover underline stay at 100% width for the active link */
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Navigation Container */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    background: var(--white);
+    height: 80px;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Logo Overhang */
+.logo {
+    position: absolute;
+    top: 0;
+    left: 8%;
+    z-index: 1100;
+}
+
+.logo img {
+    height: 110px;
+    width: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+    transform: translateY(5px);
+}
+
+/* Nav Links & Green Line */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 45px;
+    margin-left: auto;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark-charcoal);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--sage-green);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    color: var(--sage-green);
+}
+
+/* Footer & Social Icons */
+footer {
+    padding: 60px 8%;
+    background-color: var(--white);
+    border-top: 1px solid #eeeeee;
+    text-align: center;
+}
+
+.footer-content p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-top: 30px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-links a {
+    color: var(--dark-charcoal);
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: var(--sage-green);
+    transform: translateY(-3px);
+}
+
+/* ==========================================
+   3. HOME PAGE SPECIFIC (Devices & Hero)
+   ========================================== */
+.hero-brand-statement {
+    background-color: var(--off-white);
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.hero-brand-statement h3 {
+    font-size: clamp(1.5rem, 5vw, 1.5rem);
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+}
+#second-line {
+    margin-left: 20%;
+}
+.hero-wrapper {
+    background-color: var(--off-white);
+    padding: 0px 0 0px 0;
+    display: flex;
+    align-items: center;
+}
+.hero-container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 8%;
+    align-items: center;
+    gap: 40px;
+}
+.hero-left {
+    flex: 1.2;
+    display: flex;
+    justify-content: center;
+}
+.hero-right {
+    flex: 1;
+}
+.hero-right h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+.text-green {
+    color: var(--sage-green);
+}
+.hero-btns {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+.btn-primary,
+.btn-secondary {
+    padding: 14px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.btn-primary {
+    background: var(--sage-green);
+    color: white;
+}
+.btn-secondary {
+    border: 2px solid var(--sage-green);
+    color: var(--sage-green);
+}
+.btn-primary:hover {
+    background: #85966a;
+}
+.btn-secondary:hover {
+    background: var(--sage-green);
+    color: white;
+}
+/* Device Styling & Layering */
+.device-showcase {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}
+.device img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+}
+.device-group {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}   
+
+.device-laptop {
+    width: 450px;
+    z-index: 1;
+}
+
+.device-tablet {
+    width: 220px;
+    margin-right: -40px;
+    z-index: 2;
+}
+
+.device-phone {
+    width: 110px;
+    margin-left: -40px;
+    z-index: 3;
+}
+
+.service-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--dark-charcoal);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+    margin-bottom: 5px;
+}
+
+.service-link:hover {
+    color: var(--sage-green);
+    border-bottom: 2px solid var(--sage-green);
+    padding-left: 5px;
+}
+
+/* ==========================================
+   5. ANIMATIONS (The Reveal Logic)
+   ========================================== */
+
+/* The base state for everything that should fade in */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* The state when it becomes visible */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- THE FIX FOR THE DEVICES --- */
+
+/* 1. handle the fade-in, but NOT move up/down */
+.device-showcase.reveal {
+    transform: none !important;
+}
+
+/* 2. set the STARTING positions for the devices (Hidden & Offset) */
+.device-tablet {
+    transform: translateX(-50px) translateY(20px);
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.device-laptop {
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.device-phone {
+    transform: translateX(50px) translateY(20px);
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+/* 3. When the parent (.device-showcase) is active, 
+move them to their final spots */
+.device-showcase.active .device-tablet {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+    transition-delay: 0.2s;
+}
+
+.device-showcase.active .device-laptop {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.device-showcase.active .device-phone {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+    transition-delay: 0.4s;
+}
+/* ==========================================
+   4. ABOUT PAGE SPECIFIC
+   ========================================== */
+
+.about-wrapper {
+    padding: 100px 0;
+    background-color: var(--white);
+}
+
+.about-container {
+    display: flex;
+    /* Side-by-side on Laptop */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-image {
+    flex: 1;
+    position: relative;
+}
+
+.about-image img {
+    width: 100%;
+    height: 550px;
+    /* High quality height for Laptop */
+    object-fit: cover;
+    border-radius: 4px;
+    position: relative;
+    z-index: 2;
+}
+
+/* The Green Box behind the image */
+.image-accent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--sage-green);
+    top: 30px;
+    left: -30px;
+    z-index: 1;
+    opacity: 0.3;
+    border-radius: 4px;
+    transition: 0.6s ease;
+}
+
+/* Hover Effect: Image and Accent move in opposite directions */
+.about-image:hover img {
+    transform: translate(15px, -15px);
+    filter: grayscale(0%);
+}
+
+.about-image:hover .image-accent {
+    transform: translate(-5px, 5px);
+    opacity: 0.5;
+}
+
+.about-content {
+    flex: 1.2;
+}
+
+.about-content h4 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--sage-green);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.about-content h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    color: var(--dark-charcoal);
+}
+
+.about-content p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.about-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-charcoal);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+/* ==========================================
+   6. SERVICES PAGE SPECIFIC
+   ========================================== */
+.services-wrapper {
+    padding: 120px 8%;
+    background-color: var(--off-white);
+}
+
+.services-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 80px auto;
+}
+
+.services-header h4 {
+    color: var(--sage-green);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.services-header h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 80px auto 40px auto;
+    max-width: 1200px;
+    color: var(--dark-charcoal);
+    border-bottom: 2px solid var(--sage-green);
+    display: table;
+    padding-bottom: 5px;
+}
+
+/* The Grid */
+.services-grid {
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual Service Card */
+.service-card {
+    background: var(--white);
+    padding: 60px 40px;
+    border-radius: 4px;
+    transition: all 0.5s ease;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+/* Individual Service Card Icon */
+.service-card i {
+    font-size: 6rem;
+    color: var(--sage-green);
+    display: inline-block;
+    /* Changed to block to allow auto-margins */
+    margin-bottom: 35px;
+    /* Centers the icon perfectly without the 100px risk */
+    transition: transform 0.3s ease;
+}
+
+/* This makes the icon grow slightly when you hover over the card */
+.service-card:hover i {
+    transform: scale(1.1);
+}
+
+.service-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* Hover Effect */
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    border-color: var(--sage-green);
+}
+
+/* ==========================================
+   7. PORTFOLIO PAGE SPECIFIC
+   ========================================== */
+.portfolio-wrapper {
+    padding: 3rem 5% 3rem 5%;
+    background-color: var(--off-white);
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    /* Ensures it looks good on mobile */
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: 0.3s ease;
+    padding: 8px 0;
+    position: relative;
+}
+
+/* The green line under the active filter */
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--sage-green);
+    transition: 0.3s ease;
+}
+
+.filter-btn.active {
+    color: var(--dark-charcoal);
+}
+
+.filter-btn.active::after,
+.filter-btn:hover::after {
+    width: 100%;
+}
+
+/* Portfolio Grid - UPDATED for 3 columns */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Project Card - UPDATED with fixed height for uniformity */
+.project-card {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    height: 350px;
+    /* Forces all cards to be the same height */
+    background: var(--charcoal);
+}
+/* Project Tags - UPDATED to be more badge-like and spaced out*/
+.project-tags .tag {
+    display: inline-block;
+    /* ensures margin works */
+    margin-right: 0.5rem;
+    /* adjust spacing as needed */
+    padding: 0.2rem 0.4rem;
+    /* make it look like badges */
+    background-color: var(--sage-green);
+    /* badge background */
+    border-radius: 4px;
+    /* rounded corners */
+    font-size: 0.9rem;
+    /* smaller text */
+    margin-bottom: 2rem;
+    /* space below tags */
+}
+
+/* Project Image - UPDATED to fill the card */
+.project-image {
+    width: 100%;
+    height: 100%;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Prevents image stretching */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover Overlay */
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 26, 0.9);
+    /* Dark charcoal with transparency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    padding: 40px;
+    text-align: center;
+    z-index: 2;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.1);
+}
+
+.overlay-text h3 {
+    color: var(--white);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.overlay-text p {
+    color: var(--sage-green);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.view-project {
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--sage-green);
+    padding-bottom: 5px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.view-project:hover {
+    color: var(--sage-green);
+}
+
+/* Spotlight Area */
+
+.spotlight-section {
+    min-height: 400px;
+    background: #f9f9f9;
+    margin: 40px auto;
+    padding: 60px 8%;
+    border-radius: 8px;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #ddd;
+    /* Subtle border when empty */
+}
+
+.spotlight-content {
+    width: 100%;
+}
+
+.spotlight-content {
+    position: relative;
+    /* Allows the button to be positioned absolutely inside */
+}
+
+.close-spotlight {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.close-spotlight:hover {
+    color: var(--sage-green);
+}
+
+.close-spotlight i {
+    font-size: 1.2rem;
+}
+
+/* Adjust the spotlight section slightly for better appearance when active */
+.spotlight-section.active {
+    background: var(--white);
+    border: 1px solid #eee;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.spotlight-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.spotlight-image img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.spotlight-text .category {
+    color: var(--sage-green);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.spotlight-text h2 {
+    font-size: 2.5rem;
+    margin: 15px 0;
+    color: var(--dark-charcoal);
+}
+
+.spotlight-text p {
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.spotlight-placeholder p {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ==========================================
+   8. CONTACT PAGE SPECIFIC
+   ========================================== */
+.contact-wrapper {
+    padding: 140px 8% 100px 8%;
+    background-color: var(--white);
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info h4 {
+    color: var(--sage-green);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.contact-info h2 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: var(--dark-charcoal);
+}
+
+.info-details {
+    margin-top: 50px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.info-item i {
+    font-size: 1.5rem;
+    color: var(--sage-green);
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.info-item span {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--sage-green);
+    background-color: #fdfdfd;
+}
+
+.submit-btn {
+    margin: 20px auto 0 auto;
+    /* Centers the button horizontally */
+    display: flex;
+    /* Keeps icon and text aligned */
+    align-items: center;
+    gap: 10px;
+    background-color: var(--dark-charcoal);
+    color: var(--white);
+    padding: 15px 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.submit-btn:hover {
+    background-color: var(--sage-green);
+    transform: translateY(-3px);
+}
+.form-status {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    min-height: 1.2rem;
+    color: #444;
+}
+
+.form-status.success {
+    color: #1f7a3d;
+}
+
+.form-status.error {
+    color: #b42318;
+}
+
+/* ==========================================
+   9. MODAL STYLES FOR FORM SUBMISSION
+   ========================================== */
+
+/* Success Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    /* Blurs the background site */
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 50px;
+    border-radius: 4px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--sage-green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 25px auto;
+}
+
+.modal-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--dark-charcoal);
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.close-modal-btn {
+    background: var(--dark-charcoal);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.close-modal-btn:hover {
+    background: var(--sage-green);
+}
+.content-error {
+    color: #b42318;
+    text-align: center;
+    margin: 20px 0;
+}
+/* ==========================================
+   6. RESPONSIVE MEDIA QUERIES 
+   ========================================== */
+
+@media (max-width: 992px) {
+/* ---------------------------------- 
+Contact Page Mobile Responsiveness 
+----------------------------------- */
+.contact-wrapper {
+padding: 100px 5% 60px 5%;
+}
+
+.contact-container {
+grid-template-columns: 1fr;
+/* Stacks the info on top of the form */
+gap: 50px;
+text-align: center;
+}
+
+.contact-info h2 {
+font-size: 2.2rem;
+}
+
+.info-item {
+justify-content: center;
+/* Centers icons and text for mobile */
+text-align: left;
+}
+
+.info-details {
+margin-top: 30px;
+display: inline-block;
+}
+.form-group submit-btn{
+           justify-items: center;
+}
+
+/* ---------------------------------- 
+Portfolio Page Mobile Responsiveness 
+----------------------------------- */
+.portfolio-wrapper {
+    padding: 60px 5%;
+}
+    
+.portfolio-filters {
+    gap: 15px;
+    /* Tighter gap for smaller screens */
+    margin-bottom: 30px;
+}
+    
+.filter-btn {
+    font-size: 0.8rem;
+ /* Smaller font to prevent button overflow */
+ }
+    
+/* Stack the Spotlight Grid */
+.spotlight-grid {
+grid-template-columns: 1fr;
+/* Force single column */
+gap: 30px;
+text-align: center;
+}
+
+.spotlight-text h2 {
+    font-size: 1.8rem;
+}
+    
+.portfolio-grid {
+    grid-template-columns: 1fr;
+    /* Single column for project cards */
+}
+    
+.project-card {
+    height: 300px;
+    /* Slightly shorter cards for mobile vertical scroll */
+}
+/* ---------------------------------- 
+Services Page Mobile Responsiveness 
+----------------------------------- */
+.services-wrapper {
+    padding: 60px 5%;
+}
+    
+.services-header h2 {
+    font-size: 2.2rem;
+}
+    
+.section-title {
+    margin: 40px auto 20px auto;
+    font-size: 1rem;
+}
+.section-title {
+    white-space: nowrap;
+    /* Forces text to stay on one line */
+    font-size: 0.95rem;
+    /* Slightly smaller to fit width */
+    letter-spacing: 2px;
+    /* Tighter spacing to save horizontal room */
+    width: 100%;
+    /* Ensure it uses the full available width */
+    text-align: center;
+    /* Keep it looking professional and centered */
+}
+/* ---------------------------------- 
+About Page Mobile Responsiveness 
+------------------------------------ */
+    .about-wrapper {
+        padding: 60px 0;
+    }
+
+    .about-container {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .about-image {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .about-image img {
+        height: 350px;
+    }
+
+    .image-accent {
+        top: 15px;
+        left: -15px;
+    }
+
+    .about-stats {
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .about-content h2 {
+        font-size: 2rem;
+    }
+
+    /* --- Navigation & Logo --- */
+    nav {
+        padding: 0 5%;
+        justify-content: space-between;
+    }
+
+    .logo {
+        position: relative;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .logo img {
+        height: 70px;
+    }
+
+    /* --- Hamburger Menu Icon --- */
+    .menu-toggle {
+        display: block;
+        font-size: 1.8rem;
+        color: var(--dark-charcoal);
+        cursor: pointer;
+        z-index: 1200;
+    }
+
+    /* --- Mobile Menu Drawer --- */
+    .nav-links {
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 50px;
+        gap: 0;
+        transition: 0.4s ease-in-out;
+        z-index: 1000;
+        margin-left: 0;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        padding: 25px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    /* --- Hero Layout Fix --- */
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .hero-left {
+        order: 1;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .hero-right {
+        order: 2;
+        width: 100%;
+        padding-bottom: 30px;
+    }
+
+    .hero-btns {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        flex: 1;
+        max-width: 160px;
+        text-align: center;
+    }
+
+    /* --- Device Scaling --- */
+    .device-showcase {
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    .device-group {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        transform: scale(0.9);
+        transform-origin: center;
+        width: fit-content;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+
+    .device-laptop {
+        width: 55vw;
+        max-width: 250px;
+    }
+
+    .device-tablet {
+        width: 28vw;
+        max-width: 120px;
+        margin-right: -35px;
+    }
+
+    .device-phone {
+        width: 18vw;
+        max-width: 70px;
+        margin-left: -35px;
+    }
+
+    /* --- Typography Fixes --- */
+    #second-line {
+        margin-left: 0;
+    }
+
+    .hero-brand-statement h3 {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+}
+
+@media (min-width: 993px) {
+    .menu-toggle {
+        display: none;
+    }
+}

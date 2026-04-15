@@ -1,0 +1,33 @@
+{
+  "name": "quantumsd-portfolio",
+  "version": "1.0.0",
+  "description": "Professional Web Design & Development Solutions",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "web development",
+    "uiux",
+    "ecommerce",
+    "branding"
+  ],
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.5"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoussamLh/quantum-portfolio.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/HoussamLh/quantum-portfolio/issues"
+  },
+  "homepage": "https://github.com/HoussamLh/quantum-portfolio#readme"
+}

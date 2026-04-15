@@ -1,0 +1,285 @@
+/**
+ * QuantumSD Scroll Reveal
+ */
+
+function initScrollReveal() {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
+    });
+}
+
+/**
+ * Mobile Menu Toggle
+ */
+
+function initMobileMenu() {
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            }
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-xmark');
+                }
+            });
+        });
+    }
+}
+/**
+ * QuantumSD Highlight Current Page
+ */
+
+function highlightCurrentPage() {
+let path = window.location.pathname;
+let currentPage = path.split("/").pop() || "index.html";
+
+    // Fix: If on root or index, make it index.html
+if (currentPage === "") currentPage = "index.html";
+
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        // Check if href includes the currentPage string
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+}
+
+/**
+ * QuantumSD Auto-Select Service
+ */
+
+function autoSelectService() {
+    const queryParams = new URLSearchParams(window.location.search);
+    const serviceRequested = queryParams.get('service');
+
+    if (serviceRequested) {
+        const selectElement = document.getElementById('service-select');
+        if (selectElement) {
+            selectElement.value = serviceRequested;
+        }
+    }
+}
+
+/**
+ * contact form listener and handles email submission
+ */
+
+function initContactForm() {
+  const contactForm = document.getElementById('contact-form');
+  const submitBtn = document.querySelector('.submit-btn');
+
+  // Safety check: only run if the form exists on the current page
+  if (!contactForm || !submitBtn) return;
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // 1. Update UI to "Sending" state
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+    submitBtn.disabled = true;
+
+    // 2. Gather form data
+    const formData = {
+      name: contactForm.querySelector('input[name="name"]').value,
+      email: contactForm.querySelector('input[name="email"]').value,
+      service: contactForm.querySelector('#service-select').value || "Not specified",
+      message: contactForm.querySelector('textarea').value
+    };
+
+    try {
+      // 3. Send request to Node.js backend
+      const response = await fetch('/api/send-email', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        // 4. Success: show modal and clear form
+        document.getElementById('success-modal').classList.add('active');
+        contactForm.reset();
+      } else {
+        alert("Sorry, there was an error sending your message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Fetch Error:", error);
+      alert("Could not connect to the server. Please ensure the backend is running.");
+    } finally {
+      // 5. Restore button state
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+/**
+ * Closes the success modal after a message is sent
+ */
+
+function closeModal() {
+  const modal = document.getElementById('success-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+/** 
+ ** Spotlight: Show Project Details
+ */
+
+function showProject(card, shouldScroll = false) {
+    if (!card) return;
+
+    const spotlightSection = document.getElementById('project-spotlight');
+    const spotlightContent = document.getElementById('spotlight-content');
+    if (!spotlightSection || !spotlightContent) return; // Safety check
+
+    // 1. Extract data
+    const title = card.getAttribute('data-title');
+    const category = card.getAttribute('data-category');
+    const desc = card.getAttribute('data-desc');
+    const img = card.getAttribute('data-image');
+    const tagsAttr = card.getAttribute('data-tags');
+    const tags = tagsAttr ? tagsAttr.split(',') : [];
+
+    // 2. Update Elements
+    const titleEl = document.getElementById('spotlight-title');
+    const catEl = document.getElementById('spotlight-category');
+    const descEl = document.getElementById('spotlight-desc');
+    const imgEl = document.getElementById('spotlight-img');
+
+    if (titleEl) titleEl.innerText = title;
+    if (catEl) catEl.innerText = category;
+    if (descEl) descEl.innerText = desc;
+    if (imgEl) imgEl.src = img;
+
+    // 3. Update Tags
+    const tagsContainer = document.getElementById('spotlight-tags');
+    if (tagsContainer) {
+        tagsContainer.innerHTML = '';
+        tags.forEach(tag => {
+            const span = document.createElement('span');
+            span.innerText = tag.trim();
+            span.classList.add('tag');
+            tagsContainer.appendChild(span);
+        });
+    }
+    // 3. Map your Portfolio Categories to your Contact Form Option Values
+    const categoryMap = {
+        'Custom Web Development': 'web-dev',
+        'UI/UX Design': 'uiux',
+        'E-Commerce Solutions': 'ecommerce',
+        'SEO & Data Optimization': 'seo',
+        'Software Architecture': 'software',
+        'Brand Identity & Logo': 'branding'
+    };
+    
+    const serviceKey = categoryMap[category] || 'web-dev';
+
+    // 4. Update the button link
+    const spotlightLink = document.getElementById('spotlight-link');
+    if (spotlightLink) {
+        spotlightLink.href = `contact.html?service=${serviceKey}`;
+    }
+
+
+    // 6. Reveal
+    spotlightContent.style.display = 'block';
+    spotlightSection.classList.add('active');
+    spotlightSection.style.background = 'white';
+
+    // 7. Conditional Scroll
+    if (shouldScroll) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+/**
+ * Portfolio Filter Logic
+ */
+
+function initPortfolioFilter() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if (filterButtons.length === 0) return;
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filterValue = button.getAttribute('data-filter');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            projectCards.forEach(card => {
+                const isMatch = filterValue === 'all' || card.classList.contains(filterValue);
+                if (isMatch) {
+                    card.style.display = 'block';
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                }
+            });
+        });
+    });
+}
+
+/**
+ * Hides the Project Spotlight
+ */
+
+function hideProject() {
+    const spotlightSection = document.getElementById('project-spotlight');
+    const spotlightContent = document.getElementById('spotlight-content');
+    const placeholder = document.querySelector('.spotlight-placeholder');
+
+    spotlightContent.style.display = 'none';
+    placeholder.style.display = 'block';
+    spotlightSection.classList.remove('active');
+
+    // Optional: scroll back to the grid
+    document.querySelector('.portfolio-filters').scrollIntoView({ behavior: 'smooth' });
+}
+
+/**
+ * Initialization
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal();
+    initMobileMenu();
+    initPortfolioFilter();
+    initContactForm();
+    autoSelectService();
+    highlightCurrentPage();
+
+    // Default project load (no scroll)
+    const firstCard = document.querySelector('.project-card');
+    if (firstCard) {
+        showProject(firstCard, false);
+    }
+});
