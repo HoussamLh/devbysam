@@ -221,6 +221,12 @@ footer {
     background: var(--sage-green);
     color: white;
 }
+.micro-trust {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
 /* Device Styling & Layering */
 .device-showcase {
     display: flex;
