@@ -15,7 +15,7 @@ async function loadJson(path) {
 
 function reInitAfterDynamicRender() {
   if (typeof initScrollReveal === "function") initScrollReveal();
-  if (typeof initPortfolioFilter === "function") initPortfolioFilter();
+  if (typeof initProjectsFilter === "function") initProjectsFilter();
 
   const firstCard = document.querySelector(".project-card");
   if (firstCard && typeof showProject === "function") {
@@ -60,7 +60,7 @@ async function renderServices() {
 }
 
 async function renderProjects() {
-  const grid = document.getElementById("portfolio-grid");
+  const grid = document.getElementById("projects-grid");
   if (!grid) return;
 
   const items = await loadJson("/data/projects.json");
@@ -98,12 +98,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (e) {
     console.error("Content loading error:", e);
     const servicesRoot = document.getElementById("services-sections");
-    const portfolioRoot = document.getElementById("portfolio-grid");
+    const projectsRoot = document.getElementById("projects-grid");
     if (servicesRoot) {
       servicesRoot.innerHTML = '<p class="content-error">Unable to load services right now.</p>';
     }
-    if (portfolioRoot) {
-      portfolioRoot.innerHTML = '<p class="content-error">Unable to load projects right now.</p>';
+    if (projectsRoot) {
+      projectsRoot.innerHTML = '<p class="content-error">Unable to load projects right now.</p>';
     }
   }
 });
