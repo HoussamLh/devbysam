@@ -187,7 +187,7 @@ function showProject(card, shouldScroll = false) {
             tagsContainer.appendChild(span);
         });
     }
-    // 3. Map your Portfolio Categories to your Contact Form Option Values
+    // 3. Map your Projects Categories to your Contact Form Option Values
     const categoryMap = {
         'Custom Web Development': 'web-dev',
         'UI/UX Design': 'uiux',
@@ -218,10 +218,10 @@ function showProject(card, shouldScroll = false) {
 }
 
 /**
- * Portfolio Filter Logic
+ * Projects Filter Logic
  */
 
-function initPortfolioFilter() {
+function initProjectsFilter() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
 
@@ -262,7 +262,7 @@ function hideProject() {
     spotlightSection.classList.remove('active');
 
     // Optional: scroll back to the grid
-    document.querySelector('.portfolio-filters').scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('.projects-filters').scrollIntoView({ behavior: 'smooth' });
 }
 
 /**
@@ -272,7 +272,7 @@ function hideProject() {
 document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initMobileMenu();
-    initPortfolioFilter();
+    initProjectsFilter();
     initContactForm();
     autoSelectService();
     highlightCurrentPage();

@@ -544,17 +544,17 @@ move them to their final spots */
 /* ==========================================
    7. PORTFOLIO PAGE SPECIFIC
    ========================================== */
-.portfolio-wrapper {
+.projets-wrapper {
     padding: 3rem 5% 3rem 5%;
     background-color: var(--off-white);
 }
 
-.portfolio-header {
+.projects-header {
     text-align: center;
     margin-bottom: 3rem;
 }
 
-.portfolio-filters {
+.projects-filters {
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -599,7 +599,7 @@ move them to their final spots */
 }
 
 /* Portfolio Grid - UPDATED for 3 columns */
-.portfolio-grid {
+.projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
@@ -1041,13 +1041,13 @@ display: inline-block;
 }
 
 /* ---------------------------------- 
-Portfolio Page Mobile Responsiveness 
+Projects Page Mobile Responsiveness 
 ----------------------------------- */
-.portfolio-wrapper {
+.projects-wrapper {
     padding: 60px 5%;
 }
     
-.portfolio-filters {
+.projects-filters {
     gap: 15px;
     /* Tighter gap for smaller screens */
     margin-bottom: 30px;
