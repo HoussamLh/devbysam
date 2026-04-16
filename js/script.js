@@ -85,6 +85,29 @@ function autoSelectService() {
 }
 
 /**
+ * Pricing switcher initialization
+ */
+
+function initPricingSwitcher() {
+  const select = document.getElementById("pricing-select");
+  const cards = document.querySelectorAll(".price-card");
+
+  if (!select) return;
+
+  select.addEventListener("change", () => {
+    const value = select.value;
+
+    cards.forEach((card) => {
+      if (card.getAttribute("data-plan") === value) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+}
+
+/**
  * contact form listener and handles email submission
  */
 
@@ -276,6 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     autoSelectService();
     highlightCurrentPage();
+    initPricingSwitcher();
 
     // Default project load (no scroll)
     const firstCard = document.querySelector('.project-card');
