@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+.env.local
+
+# mac
+.DS_Store
+
+# logs
+*.log
+
+# build folders
+dist/
+build/
+
+# vercel local files
+.vercel/
+
+# testing
+coverage/
