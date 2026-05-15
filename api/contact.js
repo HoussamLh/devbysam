@@ -1,14 +1,26 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
-require("dotenv").config();
+const path = require("path");
+
+// Update path to find .env in the root folder
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
-app.use(cors());
+
+// Enable CORS for Live Server
+app.use(
+  cors({
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+    methods: ["POST", "GET", "OPTIONS"],
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
 
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || "smtp.gmail.com", 
+  host: process.env.EMAIL_HOST || "smtp.gmail.com",
   port: 465,
   secure: true,
   auth: {
@@ -19,7 +31,7 @@ const transporter = nodemailer.createTransport({
   greetingTimeout: 5000,
 });
 
-// Test the connection in the Vercel logs
+// Verify connection
 transporter.verify((error) => {
   if (error) {
     console.log("Transporter connection error:", error);
@@ -28,9 +40,10 @@ transporter.verify((error) => {
   }
 });
 
-app.post("/api/send-email", async (req, res) => {
+// Route handler
+app.post("/", async (req, res) => {
   try {
-    const { name, email, service, message } = req.body;
+    const { name, phone, email, service, message } = req.body;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -39,8 +52,9 @@ app.post("/api/send-email", async (req, res) => {
       subject: `New Project Inquiry from ${name} [${service}]`,
       html: `
       <div style="font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px;">
-        <h2 style="color: #007bff;">DevbySam Inquiry</h2>
+        <h2 style="color: #4a5d4a;">DevbySam Inquiry</h2>
         <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Requested Service:</strong> ${service}</p>
         <hr />
@@ -53,9 +67,15 @@ app.post("/api/send-email", async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Success! Your message has been sent." });
   } catch (error) {
-    console.error("Vercel Mail Error:", error);
+    console.error("Mail Error:", error);
     res.status(500).json({ error: "Failed to send message." });
   }
+});
+
+// Start server for local testing
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`API is listening on http://localhost:${PORT}`);
 });
 
 module.exports = app;

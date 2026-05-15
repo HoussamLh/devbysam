@@ -114,46 +114,43 @@ function initContactForm() {
   const contactForm = document.getElementById('contact-form');
   const submitBtn = document.querySelector('.submit-btn');
 
-  // Safety check: only run if the form exists on the current page
   if (!contactForm || !submitBtn) return;
 
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // 1. Update UI to "Sending" state
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
     submitBtn.disabled = true;
 
-    // 2. Gather form data
     const formData = {
       name: contactForm.querySelector('input[name="name"]').value,
-      phone: contactForm.querySelector('input[name="phone"]').value,
+      // Fallback to name="phone" or generic type="text" check
+      phone: (contactForm.querySelector('input[name="phone"]') || {}).value || "N/A",
       email: contactForm.querySelector('input[name="email"]').value,
       service: contactForm.querySelector('#service-select').value || "Not specified",
       message: contactForm.querySelector('textarea').value
     };
 
     try {
-      // 3. Send request to Node.js backend
-      const response = await fetch('/api/send-email', {
+      // Points to the local Node server running on port 3000
+      const response = await fetch('http://localhost:3000/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        // 4. Success: show modal and clear form
         document.getElementById('success-modal').classList.add('active');
         contactForm.reset();
       } else {
-        alert("Sorry, there was an error sending your message. Please try again.");
+        const errData = await response.json();
+        alert(`Error: ${errData.error || "Failed to send."}`);
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      alert("Could not connect to the server. Please ensure the backend is running.");
+      alert("Could not connect to the server. Is your Node server running on port 3000?");
     } finally {
-      // 5. Restore button state
       submitBtn.innerHTML = originalBtnText;
       submitBtn.disabled = false;
     }
