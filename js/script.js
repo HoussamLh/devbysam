@@ -48,14 +48,13 @@ function initMobileMenu() {
     }
 }
 /**
- * QuantumSD Highlight Current Page
+ * Devbysam Highlight Current Page
  */
 
 function highlightCurrentPage() {
 let path = window.location.pathname;
 let currentPage = path.split("/").pop() || "index.html";
 
-    // Fix: If on root or index, make it index.html
 if (currentPage === "") currentPage = "index.html";
 
     const navLinks = document.querySelectorAll('.nav-links a');
@@ -69,7 +68,7 @@ if (currentPage === "") currentPage = "index.html";
 }
 
 /**
- * QuantumSD Auto-Select Service
+ * Devbysam Auto-Select Service
  */
 
 function autoSelectService() {
@@ -129,6 +128,7 @@ function initContactForm() {
     // 2. Gather form data
     const formData = {
       name: contactForm.querySelector('input[name="name"]').value,
+      phone: contactForm.querySelector('input[name="phone"]').value,
       email: contactForm.querySelector('input[name="email"]').value,
       service: contactForm.querySelector('#service-select').value || "Not specified",
       message: contactForm.querySelector('textarea').value

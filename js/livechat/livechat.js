@@ -3,9 +3,12 @@ function initLiveChat() {
 
   chat.innerHTML = `
     
-    <button id="chat-toggle">
-        💬
-    </button>
+    <div id="chat-container-wrapper">
+        <span class="chat-label">Chat now</span>
+        <button id="chat-toggle">
+            <i class="fa-solid fa-comments"></i>
+        </button>
+    </div>
 
     <div id="chat-window">
 
