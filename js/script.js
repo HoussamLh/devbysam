@@ -146,10 +146,10 @@ try {
         const errData = await response.json();
         alert(`Error: ${errData.error || "Failed to send."}`);
       }
-    } catch (error) {
-      console.error("Fetch Error:", error);
-      alert("Could not connect to the server. Is your Node server running on port 3000?");
-    } finally {
+}      catch (error) {
+        console.error("Fetch Error:", error);
+        alert("Connection error. Please check your internet or try again later.");
+}      finally {
       submitBtn.innerHTML = originalBtnText;
       submitBtn.disabled = false;
     }
