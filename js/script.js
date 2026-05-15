@@ -132,13 +132,12 @@ function initContactForm() {
       message: contactForm.querySelector('textarea').value
     };
 
-    try {
-      // Points to the local Node server running on port 3000
-      const response = await fetch('http://localhost:3000/', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+try {
+  const response = await fetch('/api/contact', { 
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
 
       if (response.ok) {
         document.getElementById('success-modal').classList.add('active');
