@@ -68,7 +68,7 @@ if (currentPage === "") currentPage = "index.html";
 }
 
 /**
- * Devbysam Auto-Select Service
+ *  Auto-Select Services 
  */
 
 function autoSelectService() {
