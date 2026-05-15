@@ -36,90 +36,118 @@
       </ul>
     </nav>
     <section class="contact-wrapper">
-      <div class="contact-container">
-        <div class="contact-info reveal">
-          <h4>Get In Touch</h4>
-          <h2>
+    <div class="contact-hero-top reveal">
+        <h4>Get In Touch</h4>
+        <h2>
             Let's create something
             <span class="highlight">extraordinary</span> together.
-          </h2>
-          <p>
+        </h2>
+        <p>
             Ready to start your next digital project? Reach out and let's talk
             about how DevBySam can help your business grow.
-          </p>
+        </p>
+    </div>
 
-          <div class="info-details">
-            <div class="info-item">
-              <i class="fas fa-envelope"></i>
-              <div>
-                <span>Email Us</span>
-                <p>contact@devbysam.co.uk</p>
-              </div>
+    <div class="contact-container">
+        <div class="contact-info reveal">
+            <h3>Contact Us</h3>
+            <p>Prefer to speak with a human? Give us a ring.</p>
+            <div class="info-details">
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <span>Email Us</span>
+                        <p>contact@devbysam.co.uk</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <span>Call Us</span>
+                        <p> 🇬🇧 +44 0 77 77 92 08 92</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <span>Location</span>
+                        <p>Farnborough, UK / Remote</p>
+                    </div>
+                </div>
+                <strong>Opening Hours:</strong>
+                <p><strong>Mon-Fri:</strong> 8am-10pm<br>
+                <strong>Sat:</strong> 9am-6pm | <strong>Sun:</strong> 10am-5pm</p>
             </div>
-            <div class="info-item">
-              <i class="fas fa-phone"></i>
-              <div>
-                <span>Call Us</span>
-                <p>+44 7777 920892</p>
-              </div>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <div>
-                <span>Location</span>
-                <p>Farnborough, UK / Remote</p>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div class="contact-form-container reveal">
-          <form id="contact-form">
-            <div id="form-status" class="form-status">
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <select name="service" id="service-select">
-                  <option value="" disabled selected>Interested Service</option>
-                  <option value="web-dev">Web Design & Dev</option>
-                  <option value="uiux">UI/UX Design</option>
-                  <option value="ecommerce">E-Commerce</option>
-                  <option value="seo">SEO & Strategy</option>
-                  <option value="branding">Branding & Identity</option>
-                  <option value="software">Software Solutions</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <textarea
-                  name="message"
-                  placeholder="Tell us about your project"
-                  rows="5"
-                  required
-                >
-                </textarea>
-              </div>
+        <div class="contact-info reveal">
+            <h3>Live Webchat</h3>
+            <p>Get instant help from our team in real-time.</p>
+            <div class="info-details">
+              <p><strong>Availability (UK Time):</strong></p>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <span>Mon - Fri</span>
+                        <p>8:00am to 10:00pm</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <div>
+                        <span>Saturday</span>
+                        <p>9:00am to 6:00pm</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-sun"></i>
+                    <div>
+                        <span>Sunday</span>
+                        <p>10:00am to 5:00pm</p>
+                    </div>
+                </div>
+                  <p><strong> How it works: </strong> Look for the black chat icon at the bottom right.</p>
             </div>
-            <button type="submit" class="submit-btn">
-              Send a Message <i class="fas fa-paper-plane"></i>
-            </button>
-          </form>
         </div>
-      </div>
-    </section>
+    </div>
+
+    <div class="contact-form-full reveal">
+        <div class="contact-form-container">
+            <h3 style="text-align: center; margin-bottom: 30px;">Send a Message</h3>
+            <form id="contact-form">
+                <div id="form-status" class="form-status">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your full name" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="phone" placeholder="Your phone number" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your email address" required />
+                    </div>
+                    <div class="form-group">
+                        <select name="service" id="service-select">
+                            <option value="" disabled selected>Interested Service</option>
+                            <option value="web-dev">Web Design & Dev</option>
+                            <option value="uiux">UI/UX Design</option>
+                            <option value="ecommerce">E-Commerce</option>
+                            <option value="seo">SEO & Strategy</option>
+                            <option value="branding">Branding & Identity</option>
+                            <option value="software">Software Solutions</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Tell us about your project" rows="5" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    Send a Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+    
     <footer>
       <div class="footer-content">
         <div class="social-links">
