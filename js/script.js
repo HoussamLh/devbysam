@@ -111,45 +111,67 @@ function initPricingSwitcher() {
  */
 
 function initContactForm() {
-  const contactForm = document.getElementById('contact-form');
-  const submitBtn = document.querySelector('.submit-btn');
+  const contactForm = document.getElementById("contact-form");
+  const submitBtn = document.querySelector(".submit-btn");
 
   if (!contactForm || !submitBtn) return;
 
-  contactForm.addEventListener('submit', async (e) => {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const originalBtnText = submitBtn.innerHTML;
+
     submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+
     submitBtn.disabled = true;
 
     const formData = {
-      name: contactForm.querySelector('input[name="name"]').value,
-      // Fallback to name="phone" or generic type="text" check
-      phone: (contactForm.querySelector('input[name="phone"]') || {}).value || "N/A",
-      email: contactForm.querySelector('input[name="email"]').value,
-      service: contactForm.querySelector('#service-select').value || "Not specified",
-      message: contactForm.querySelector('textarea').value
+      name:  contactForm.querySelector('input[name="name"]')?.value.trim(),
+      phone: contactForm.querySelector('input[name="phone"]')?.value.trim() || "N/A",
+      email: contactForm.querySelector('input[name="email"]')?.value.trim(),
+      service: contactForm.querySelector("#service-select")?.value || "Not specified",
+      message: contactForm.querySelector("textarea")?.value.trim(),
     };
 
-try {
-  const response = await fetch('/api/contact', { 
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  });
+    // Simple validation
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill in all required fields.");
 
-      if (response.ok) {
-        document.getElementById('success-modal').classList.add('active');
-        contactForm.reset();
-      } else {
-        const errData = await response.json();
-        alert(`Error: ${errData.error || "Failed to send."}`);
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+
+      return;
+    }
+
+    const API_URL =
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "localhost"
+        ? "http://localhost:3000/api/contact"
+        : "/api/contact";
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
       }
-}      catch (error) {
-        console.error("Fetch Error:", error);
-        alert("Connection error. Please check your internet or try again later.");
-}      finally {
+
+      document.getElementById("success-modal")?.classList.add("active");
+
+      contactForm.reset();
+    } catch (error) {
+      console.error("Contact Error:", error);
+
+      alert(error.message || "Unable to send message.");
+    } finally {
       submitBtn.innerHTML = originalBtnText;
       submitBtn.disabled = false;
     }

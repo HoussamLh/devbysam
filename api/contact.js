@@ -3,11 +3,11 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 const path = require("path");
 
-// locally path and Vercel handles envs auto.
+// Load .env locally
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
-} else {
-  require("dotenv").config();
+  require("dotenv").config({
+    path: path.resolve(__dirname, "../.env"),
+  });
 }
 
 const app = express();
@@ -17,10 +17,11 @@ app.use(
     origin: [
       "http://127.0.0.1:5500",
       "http://localhost:5500",
-      "https://your-vercel-domain.vercel.app",
+      "http://localhost:3000",
+      "https://devbysam.co.uk",
+      "https://www.devbysam.co.uk",
     ],
-    methods: ["POST", "GET", "OPTIONS"],
-    credentials: true,
+    methods: ["GET", "POST", "OPTIONS"],
   }),
 );
 
@@ -36,49 +37,107 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Route handler (Keep as is, it's good!)
-app.post("/", async (req, res) => {
+// Check SMTP connection on startup
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP Error:", error);
+  } else {
+    console.log("SMTP Ready");
+  }
+});
+
+app.post("/api/contact", async (req, res) => {
   try {
     const { name, phone, email, service, message } = req.body;
 
-    // Safety check for environment variables
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      throw new Error("Email credentials missing in environment");
+    // Validation
+    if (!name || !email || !message) {
+      return res.status(400).json({
+        error: "Please fill all required fields",
+      });
+    }
+
+    // Environment validation
+    if (
+      !process.env.EMAIL_USER ||
+      !process.env.EMAIL_PASS ||
+      !process.env.RECEIVER_EMAIL
+    ) {
+      throw new Error("Missing email environment variables");
     }
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      replyTo: email,
+      from: `"DevBySam Website" <${process.env.EMAIL_USER}>`,
       to: process.env.RECEIVER_EMAIL,
-      subject: `New Project Inquiry from ${name} [${service}]`,
+      replyTo: email,
+      subject: `New Project Inquiry from ${name}`,
+
       html: `
-        <div style="font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px;">
-          <h2 style="color: #4a5d4a;">DevbySam Inquiry</h2>
+        <div style="
+          font-family:Arial,sans-serif;
+          max-width:600px;
+          margin:auto;
+          padding:20px;
+          border:1px solid #ddd;
+          border-radius:10px;
+        ">
+
+          <h2 style="color:#4a5d4a;">
+            New DevBySam Inquiry
+          </h2>
+
           <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Phone:</strong> ${phone}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Requested Service:</strong> ${service}</p>
-          <hr />
-          <p><strong>Message:</strong></p>
-          <p style="white-space: pre-wrap;">${message}</p>
+
+          <p><strong>Phone:</strong>
+          ${phone || "Not provided"}</p>
+
+          <p><strong>Email:</strong>
+          ${email}</p>
+
+          <p><strong>Service:</strong>
+          ${service || "Not specified"}</p>
+
+          <hr>
+
+          <h3>Message</h3>
+
+          <p style="
+            white-space:pre-wrap;
+            line-height:1.6;
+          ">
+          ${message}
+          </p>
+
         </div>
       `,
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Success" });
+
+    console.log("Email sent successfully");
+
+    res.status(200).json({
+      message: "Email sent successfully",
+    });
   } catch (error) {
     console.error("Mail Error:", error);
-    res.status(500).json({ error: error.message });
+
+    res.status(500).json({
+      error: "Failed to send email",
+      details: error.message,
+    });
   }
 });
 
-// ONLY listen if running locally. Vercel ignores this.
+// Local server only
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
+
   app.listen(PORT, () => {
-    console.log(`API is listening on http://localhost:${PORT}`);
+    console.log(`API listening on http://localhost:${PORT}`);
   });
 }
 
+// Export for Vercel
 module.exports = app;
+module.exports.default = app;
